@@ -170,3 +170,52 @@ code {
   width: 90px;
   text-align: right;
 }
+
+.home-deck-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/************************ DECK DETAILS PAGE ************************/
+
+.deck-details-main {
+  padding: 20px;
+}
+
+.deck-details-add-card-section {
+  padding: 20px;
+}
+
+.deck-details-add-card-section form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.deck-details-add-card-section-field {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.deck-details-add-card-section label {
+  text-align: right;
+}
+
+.deck-details-add-card-section-button {
+  width: 150px;
+  margin: 20px auto;
+  padding: 6px 10px;
+}
+
+.deck-details-card-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid var(--border);
+}

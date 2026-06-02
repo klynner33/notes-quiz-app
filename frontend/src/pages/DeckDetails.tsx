@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 import api from "../api/client";
 
 type Deck = {
@@ -53,7 +54,14 @@ function DeckDetail() {
         const id = Number(deckId);
         setCards(cardsRes.data.filter((card) => card.deck === id));
       })
-      .catch(() => setError("Could not load this deck."))
+      .catch((err) => {
+        if (axios.isAxiosError(err) && err.response?.status === 401) {
+          localStorage.removeItem("access_token");
+          navigate("/login");
+          return;
+        }
+        setError("Could not load this deck.");
+      })
       .finally(() => setLoading(false));
   }, [deckId, navigate]);
 
@@ -99,7 +107,7 @@ function DeckDetail() {
   }
 
   return (
-    <main>
+    <main className="deck-details-main">
       <p>
         <Link to="/">← Decks</Link>
       </p>
@@ -113,10 +121,10 @@ function DeckDetail() {
 
       {error && <p style={{ color: "crimson" }}>{error}</p>}
 
-      <section>
+      <section className="deck-details-add-card-section">
         <h2>Add a card</h2>
         <form onSubmit={handleCreateCard}>
-          <div>
+          <div className="deck-details-add-card-section-field">
             <label htmlFor="front">Front (question)</label>
             <textarea
               id="front"
@@ -126,7 +134,7 @@ function DeckDetail() {
             />
           </div>
 
-          <div>
+          <div className="deck-details-add-card-section-field">
             <label htmlFor="back">Back (answer)</label>
             <textarea
               id="back"
@@ -136,7 +144,7 @@ function DeckDetail() {
             />
           </div>
 
-          <button type="submit" disabled={creating}>
+          <button type="submit" disabled={creating} className="deck-details-add-card-section-button">
             {creating ? "Adding..." : "Add card"}
           </button>
         </form>
@@ -149,7 +157,7 @@ function DeckDetail() {
         ) : (
           <ul>
             {cards.map((card) => (
-              <li key={card.id}>
+              <li key={card.id} className="deck-details-card-list-item">
                 <strong>{card.front}</strong>
                 <div>{card.back}</div>
               </li>

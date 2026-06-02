@@ -114,11 +114,13 @@ function Home() {
       ) : (
         <ul>
           {decks.map((deck) => (
-            <li key={deck.id}>
+            <li key={deck.id} className="home-deck-list-item">
               <Link to={`/decks/${deck.id}`}>
                 <strong>{deck.name}</strong>
               </Link>
-              {deck.description ? ` — ${deck.description}` : null}{" "}
+              {deck.description ? (
+                <span className="deck-description">{deck.description}</span>
+              ) : null}{" "}
               <Link to={`/decks/${deck.id}/study`}>Study</Link>
             </li>
           ))}

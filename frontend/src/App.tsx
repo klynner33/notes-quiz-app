@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Study from "./pages/Study";
 import DeckDetails from "./pages/DeckDetails";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/decks/:deckId" element={<DeckDetails />} />
         <Route path="/decks/:deckId/study" element={<Study />} />
         <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );

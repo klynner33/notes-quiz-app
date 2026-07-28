@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../api/client";
 
 function Login() {
@@ -68,6 +68,9 @@ function Login() {
           {loading ? "Logging in..." : "Log in"}
         </button>
       </form>
+      <p>
+        Don't have an account? <Link to="/register">Register</Link>
+      </p>
     </main>
   );
 }

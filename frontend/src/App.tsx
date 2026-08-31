@@ -13,8 +13,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/decks/:deckId" element={<DeckDetails />} />
         <Route path="/decks/:deckId/study" element={<Study />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
         <Route path="/register" element={<Register />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );

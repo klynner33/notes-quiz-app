@@ -35,11 +35,11 @@ function Login() {
   }
 
   return (
-    <main>
+    <main className="login">
       <h1>Log in</h1>
 
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="login-field">
           <label htmlFor="username">Username</label>
           <input
             id="username"
@@ -50,7 +50,7 @@ function Login() {
           />
         </div>
 
-        <div>
+        <div className="login-field">
           <label htmlFor="password">Password</label>
           <input
             id="password"

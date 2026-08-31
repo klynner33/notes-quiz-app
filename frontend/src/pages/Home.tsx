@@ -72,17 +72,19 @@ function Home() {
 
   return (
     <main>
-      <h1>Your decks</h1>
-      <button type="button" onClick={handleLogout}>
-        Log out
-      </button>
+      <div className="home-header">
+        <h1>Your decks</h1>
+        <button type="button" onClick={handleLogout}>
+          Log out
+        </button>
+      </div>
 
       {error && <p style={{ color: "crimson" }}>{error}</p>}
 
-      <section>
+      <section className="home-create-deck">
         <h2>Create a deck</h2>
         <form onSubmit={handleCreateDeck}>
-          <div>
+          <div className="home-create-deck-field">
             <label htmlFor="deck-name">Name</label>
             <input
               id="deck-name"
@@ -92,7 +94,7 @@ function Home() {
             />
           </div>
 
-          <div>
+          <div className="home-create-deck-field">
             <label htmlFor="deck-description">Description</label>
             <input
               id="deck-description"

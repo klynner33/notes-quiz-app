@@ -213,14 +213,123 @@ code {
   padding: 6px 10px;
 }
 
-.deck-details-card-list-section ul {
+.deck-details-card-list-section {
+  padding: 20px;
+  text-align: left;
+}
+
+.deck-details-card-list {
+  list-style: none;
+  margin: 16px 0 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .deck-details-card-list-item {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  text-align: left;
+}
+
+.deck-details-card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.deck-details-card-front {
+  display: block;
+  color: var(--text-h);
+  margin-bottom: 6px;
+  word-break: break-word;
+}
+
+.deck-details-card-back {
+  color: var(--text);
+  word-break: break-word;
+}
+
+.deck-details-card-actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
   align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid var(--border);
+}
+
+.deck-details-card-btn {
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--code-bg);
+  color: var(--text-h);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+}
+
+.deck-details-card-btn:hover {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+}
+
+.deck-details-card-btn-secondary {
+  background: transparent;
+}
+
+.deck-details-card-btn-danger:hover {
+  border-color: #c44;
+  background: rgba(204, 68, 68, 0.12);
+  color: #a33;
+}
+
+.deck-details-card-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.deck-details-card-edit-label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: var(--text-h);
+  text-align: left;
+}
+
+.deck-details-card-edit-textarea {
+  width: 100%;
+  min-height: 72px;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text-h);
+  font: inherit;
+  resize: vertical;
+}
+
+.deck-details-card-edit-textarea:focus {
+  outline: 2px solid var(--accent-border);
+  outline-offset: 1px;
+}
+
+@media (max-width: 640px) {
+  .deck-details-card-list-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .deck-details-card-actions {
+    justify-content: flex-end;
+  }
 }

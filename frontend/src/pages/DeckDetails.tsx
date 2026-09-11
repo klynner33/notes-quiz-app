@@ -32,6 +32,9 @@ function DeckDetail() {
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState("");
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editFront, setEditFront] = useState("");
+  const [editBack, setEditBack] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
@@ -89,12 +92,45 @@ function DeckDetail() {
     }
   }
 
+  async function handleDeleteCard(cardId: number) {
+    if (!window.confirm("Delete this card?")) return;
+
+    try {
+      await api.delete(`/cards/${cardId}/`);
+      setCards((prev) => prev.filter((c) => c.id !== cardId));
+    } catch {
+      setError("Could not delete card.");
+    }
+  }
+
   if (loading) {
     return (
       <main>
         <p>Loading deck...</p>
       </main>
     );
+  }
+
+  function startEdit(card: Card) {
+    setEditingId(card.id);
+    setEditFront(card.front);
+    setEditBack(card.back);
+  }
+
+  async function handleSaveEdit(e: FormEvent) {
+    e.preventDefault();
+    if (editingId === null) return;
+
+    try {
+      const { data } = await api.patch<Card>(`/cards/${editingId}/`, {
+        front: editFront,
+        back: editBack,
+      });
+      setCards((prev) => prev.map((c) => (c.id === editingId ? data : c)));
+      setEditingId(null);
+    } catch {
+      setError("Could not update card.");
+    }
   }
 
   if (!deck) {
@@ -144,7 +180,11 @@ function DeckDetail() {
             />
           </div>
 
-          <button type="submit" disabled={creating} className="deck-details-add-card-section-button">
+          <button
+            type="submit"
+            disabled={creating}
+            className="deck-details-add-card-section-button"
+          >
             {creating ? "Adding..." : "Add card"}
           </button>
         </form>
@@ -155,11 +195,71 @@ function DeckDetail() {
         {cards.length === 0 ? (
           <p>No cards yet. Add one above.</p>
         ) : (
-          <ul>
+          <ul className="deck-details-card-list">
             {cards.map((card) => (
               <li key={card.id} className="deck-details-card-list-item">
-                <strong>{card.front}</strong>
-                <div>{card.back}</div>
+                {editingId === card.id ? (
+                  <form
+                    className="deck-details-card-edit-form"
+                    onSubmit={handleSaveEdit}
+                  >
+                    <label className="deck-details-card-edit-label">
+                      Front
+                      <textarea
+                        className="deck-details-card-edit-textarea"
+                        value={editFront}
+                        onChange={(e) => setEditFront(e.target.value)}
+                        required
+                      />
+                    </label>
+                    <label className="deck-details-card-edit-label">
+                      Back
+                      <textarea
+                        className="deck-details-card-edit-textarea"
+                        value={editBack}
+                        onChange={(e) => setEditBack(e.target.value)}
+                        required
+                      />
+                    </label>
+                    <div className="deck-details-card-actions">
+                      <button type="submit" className="deck-details-card-btn">
+                        Save
+                      </button>
+                      <button
+                        type="button"
+                        className="deck-details-card-btn deck-details-card-btn-secondary"
+                        onClick={() => setEditingId(null)}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                ) : (
+                  <>
+                    <div className="deck-details-card-content">
+                      <strong className="deck-details-card-front">
+                        {card.front}
+                      </strong>
+                      <div className="deck-details-card-back">{card.back}</div>
+                    </div>
+                    <div className="deck-details-card-actions">
+                      <button
+                        type="button"
+                        className="deck-details-card-btn"
+                        onClick={() => startEdit(card)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        type="button"
+                        className="deck-details-card-btn deck-details-card-btn-danger"
+                        onClick={() => handleDeleteCard(card.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </>
+                )}
               </li>
             ))}
           </ul>

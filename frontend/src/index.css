@@ -204,12 +204,17 @@ code {
 
 .deck-details-add-card-section label {
   text-align: right;
+  width: 130px;
 }
 
 .deck-details-add-card-section-button {
   width: 150px;
   margin: 20px auto;
   padding: 6px 10px;
+}
+
+.deck-details-card-list-section ul {
+  padding: 0;
 }
 
 .deck-details-card-list-item {

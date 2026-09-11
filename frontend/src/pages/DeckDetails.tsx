@@ -150,7 +150,7 @@ function DeckDetail() {
         </form>
       </section>
 
-      <section>
+      <section className="deck-details-card-list-section">
         <h2>Cards ({cards.length})</h2>
         {cards.length === 0 ? (
           <p>No cards yet. Add one above.</p>
